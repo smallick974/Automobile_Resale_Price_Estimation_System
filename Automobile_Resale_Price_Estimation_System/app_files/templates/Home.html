@@ -1,0 +1,137 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge" />
+    <!-- Latest compiled and minified CSS -->
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/css/bootstrap.min.css">
+    <!-- jQuery library -->
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+    <!-- Latest compiled JavaScript -->
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/js/bootstrap.min.js"></script>
+    <!--<script src="script.js"></script>  -->
+    <script src="{{ url_for('static',filename='script.js') }}"></script>
+    <!-- <link rel="stylesheet" href="style.css">  -->
+    <link rel= "stylesheet" type= "text/css" href= "{{ url_for('static',filename='style.css') }}">   
+  </head>
+  <body>
+    <div class="container">
+      <h1>My First Bootstrap Page</h1>
+      <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#loginModal">Login</button>
+
+      <!-- Login Modal -->
+      <div class="modal fade" id="loginModal" role="dialog">
+      <div class="modal-dialog">
+      <!-- Modal content-->
+      <div class="modal-content">
+        <div class="modal-header">
+          <button type="button" class="close" data-dismiss="modal">&times;</button>
+        </div>
+        <div class="modal-body">
+          <div class="div-spacing">
+            <input type="text" class="form-control input-lg" id="txt_email_id" placeholder="Email Id">
+          </div><br/><br/>
+          <div class="div-spacing">
+            <input type="password" class="form-control input-lg" id="txt_password" placeholder="Password">
+          </div><br/><br/>
+          <div class="div-spacing">
+            <button type="button" class="btn btn-primary btn-block" data-dismiss="modal">Login</button>
+          </div><br/><br/>
+          <div class="text-center div-spacing">
+            <a href="#">Forgot Password?</a>
+          </div><br/><br/>
+          <div class="div-spacing">
+            <button type="button" class="btn btn-warning center-block" data-dismiss="modal" data-target="#signUpModal" data-toggle="modal">Sign Up</button>
+          </div>
+      </div>
+      </div>
+    </div>
+    </div>
+
+    <!-- Signup Modal -->
+    <div class="modal fade" id="signUpModal" role="dialog">
+      <div class="modal-dialog">
+      <!-- Modal content-->
+      <div class="modal-content">
+        <div class="modal-header">
+          <button type="button" class="close" data-dismiss="modal" onclick="returnToHome()">&times;</button>
+        </div>
+        <div class="modal-body">
+          <div class="stepper-wrapper">
+            <div class="stepper-item completed" id="step1">
+              <div class="step-counter">1</div>
+              <div class="step-name">Personal Information</div>
+            </div>
+            <div class="stepper-item active" id="step2">
+              <div class="step-counter">2</div>
+              <div class="step-name">Address</div>
+            </div>
+            <div class="stepper-item active" id="step3">
+              <div class="step-counter" id="step-completed">3</div>
+              <div class="step-name">Completed</div>
+            </div>
+          </div>
+          <span id="personal_info">
+            <div>
+              <input type="text" class="form-control" id="txt_firstname" placeholder="Firstname">
+            </div><br/>
+            <div>
+              <input type="text" class="form-control" id="txt_lastname" placeholder="Lastname">
+            </div><br/>
+            <div>
+              <input type="text" class="form-control" id="txt_email_id" placeholder="Email Id">
+            </div><br/>
+            <div>
+              <input type="text" class="form-control" id="txt_phone_no" placeholder="Contact">
+            </div><br/>
+            <div>
+              <input type="date" class="form-control" id="txt_dob" placeholder="Date of Birth">
+            </div><br/>
+            <button type="button" id="btn_nextPage" class="btn btn-primary center-block" onclick="navigateToAddress()">Next</button><br/>
+          </span>
+          <span id = "address_info" class="hide-element">
+          <div>
+            <input type="text" class="form-control" id="txt_address1" placeholder="Address Line 1">
+          </div><br/>
+          <div>
+            <input type="text" class="form-control" id="txt_address2" placeholder="Address Line 2">
+          </div><br/>
+          <div>
+            <input type="text" class="form-control" id="txt_city" placeholder="City">
+          </div><br/>
+          <div>
+            <input type="text" class="form-control" id="txt_state" placeholder="State">
+          </div><br/>
+          <div>
+            <input type="text" class="form-control" id="txt_zip" placeholder="Zip">
+          </div><br/>
+          <div>
+            <input type="text" class="form-control" id="txt_country" placeholder="Country">
+          </div><br/>
+          <div>
+            <button type="button" class="btn btn-primary" onclick="navigatePersonalInfo()">Previous</button>
+            <button type="button" class="btn btn-primary" onclick="navigateToSignIn()">Next</button>
+          </div>
+        </span>
+        <span id="sign-in" class="hide-element">
+            <div class="text-center">Signed in Successfully!!!!!!!!!</div>
+            <button type="button" class="btn btn-primary center-block" data-dismiss="modal" onclick="returnToHome()">Return To Home</button>
+        </span>
+      </div>
+        <!--<div class="modal-footer">
+          <button type="button" class="btn btn-default" data-dismiss="modal">Login</button>
+        </div>-->
+      </div>
+    </div>
+    </div>
+    </div>
+
+
+
+
+
+
+    
+  </body>
+</html>
