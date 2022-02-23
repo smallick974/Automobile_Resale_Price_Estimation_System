@@ -51,6 +51,23 @@ def delete():
         Cars().deleteCarImage(request.form)       
     return render_template("Home.html")
 
+# @app.route('/testModel', methods=["POST"])
+# def testModel():
+#     year = request.form.get("year")
+#     manufacturer = request.form.get("manufacturer")
+#     model = request.form.get("model")
+#     condition = request.form.get("condition")
+#     cylinders = request.form.get("cylinders")
+#     fuel = request.form.get("fuel")
+#     odometer = request.form.get("odometer")
+#     transmission = request.form.get("transmission")
+#     drive = request.form.get("drive")
+#     cartype =request.form.get("cartype")
+#     paint_color = request.form.get("paint_color")
+#     state = request.form.get("state")
+#
+#     Models().loadvariables(year, manufacturer, model, condition, cylinders, fuel, odometer, transmission, drive, cartype, paint_color, state)
+#     return render_template("Home.html")   
 
 # main function
 if __name__ == '__main__':
