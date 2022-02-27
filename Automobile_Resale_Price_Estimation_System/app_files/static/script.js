@@ -2,6 +2,9 @@ function navigateToAddress() {
     document.getElementById("step2").classList.add("completed")
     document.getElementById("personal_info").classList.add("hide-element")
     document.getElementById("address_info").classList.remove("hide-element");
+    document.getElementById("sign-in").classList.add("hide-element");
+    document.getElementById("step3").classList.remove("completed")
+    document.getElementById("step-completed").innerHTML = '3';
 }
 
 function navigateToSignIn(){
@@ -16,13 +19,20 @@ function navigatePersonalInfo(){
     document.getElementById("step2").classList.remove("completed")
     document.getElementById("personal_info").classList.remove("hide-element")
     document.getElementById("address_info").classList.add("hide-element");
+    document.getElementById("sign-in").classList.add("hide-element");
 }
 
-function returnToHome(){
+function setDefaultVisibility(){
     document.getElementById("personal_info").classList.remove("hide-element")
     document.getElementById("address_info").classList.add("hide-element");
     document.getElementById("step2").classList.remove("completed")
     document.getElementById("step3").classList.remove("completed")
     document.getElementById("step-completed").innerHTML = '3';
     document.getElementById("sign-in").classList.add("hide-element");
+}
+
+function submitResendOtp(){
+    document.getElementById("resend_otp").classList.remove("hide-element");
+    document.getElementById("btn_sendotp").innerHTML = "Submit";
+    
 }

@@ -13,7 +13,7 @@ app= Flask(__name__)
 def signinpage():
     return render_template("Home.html")
 
-@app.route('/testUserSignup', methods=["POST"])
+@app.route('/Home', methods=['POST','GET'])
 def usersignup():
     Users().userSignUp(request.form)
     return render_template("Home.html")

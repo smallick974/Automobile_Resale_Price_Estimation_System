@@ -1,9 +1,13 @@
+.dropdown-menu {
+    width: 300px !important;
+}
+
 .stepper-wrapper {
     font-family: Arial;
-    margin-top: 50px;
+    margin-top: 30px;
     display: flex;
     justify-content: space-between;
-    margin-bottom: 20px;
+    margin-bottom: 40px;
   }
   .stepper-item {
     position: relative;
@@ -78,4 +82,20 @@
   .hide-element {
       display: none;
   }
-  
+
+  .line-spacing {
+      padding : 10px;
+  }
+
+  .float-right {
+      float: right;
+  }
+
+  .float-left {
+    float: left;
+}
+
+.button-style {
+    padding-left: 25px !important;
+    padding-right: 25px !important;
+  }

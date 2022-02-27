@@ -10,41 +10,41 @@ class DbUtils:
     
     def getMappedUserData(self,userFormData):
         userDataDict = {}
-        if "firstname" in userFormData:
-            userDataDict[Constants.FIRSTNAME] = userFormData.get("firstname")
+        if "txt_firstname" in userFormData:
+            userDataDict[Constants.FIRSTNAME] = userFormData.get("txt_firstname")
             
-        if "lastname" in userFormData:
-            userDataDict[Constants.LASTNAME] = userFormData.get("lastname")
+        if "txt_lastname" in userFormData:
+            userDataDict[Constants.LASTNAME] = userFormData.get("txt_lastname")
             
-        if "emailid" in userFormData:
-            userDataDict[Constants.EMAIL_ID] = userFormData.get("emailid")
+        if "txt_email_id" in userFormData:
+            userDataDict[Constants.EMAIL_ID] = userFormData.get("txt_email_id")
             
-        if "dob" in userFormData:
-            userDataDict[Constants.DATE_OF_BIRTH] = userFormData.get("dob")
+        if "txt_dob" in userFormData:
+            userDataDict[Constants.DATE_OF_BIRTH] = userFormData.get("txt_dob")
                     
-        if "pass" in userFormData:
-            userDataDict[Constants.PASSWORD] = userFormData.get("pass")      
+        if "txt_password" in userFormData:
+            userDataDict[Constants.PASSWORD] = userFormData.get("txt_password")      
             
-        if "addr_1" in userFormData:
-            userDataDict[Constants.ADDRESS_LINE_1] = userFormData.get("addr_1")
+        if "txt_address1" in userFormData:
+            userDataDict[Constants.ADDRESS_LINE_1] = userFormData.get("txt_address1")
             
-        if "addr_2" in userFormData:
-            userDataDict[Constants.ADDRESS_LINE_2] = userFormData.get("addr_2")
+        if "txt_address2" in userFormData:
+            userDataDict[Constants.ADDRESS_LINE_2] = userFormData.get("txt_address2")
             
-        if "city" in userFormData:
-            userDataDict[Constants.CITY] = userFormData.get("city")
+        if "txt_city" in userFormData:
+            userDataDict[Constants.CITY] = userFormData.get("txt_city")
             
-        if "states" in userFormData:
-            userDataDict[Constants.STATE] = userFormData.get("states")
+        if "txt_state" in userFormData:
+            userDataDict[Constants.STATE] = userFormData.get("txt_state")
             
-        if "zip" in userFormData:
-            userDataDict[Constants.ZIP_CODE] = userFormData.get("zip")
+        if "txt_zip" in userFormData:
+            userDataDict[Constants.ZIP_CODE] = userFormData.get("txt_zip")
             
-        if "country" in userFormData:
-            userDataDict[Constants.COUNTRY] = userFormData.get("country")
+        if "txt_country" in userFormData:
+            userDataDict[Constants.COUNTRY] = userFormData.get("txt_country")
             
-        if "contact" in userFormData:
-            userDataDict[Constants.CONTACT] = userFormData.get("contact")
+        if "txt_phone_no" in userFormData:
+            userDataDict[Constants.CONTACT] = userFormData.get("txt_phone_no")
                    
         userDataDict[Constants.USER_LAST_LOGIN] = datetime.now().strftime("%Y-%m-%d,%H:%M:%S.%f")
         

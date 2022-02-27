@@ -11,8 +11,9 @@ from app_files.Constants import Constants
 class Users:
 
     def userSignUp(self,userFormData):
+        print('USER FORM DATA: ',userFormData)
         useremaildict = {}
-        useremaildict[Constants.EMAIL_ID] = userFormData["emailid"]
+        useremaildict[Constants.EMAIL_ID] = userFormData["txt_email_id"]
         emailid = searchData(Constants.TABLE_USER_DETAILS,[Constants.EMAIL_ID],useremaildict)
         try:
             if len(emailid) != 0:
@@ -30,7 +31,7 @@ class Users:
         dbUtil = DbUtils()
         loginDict = dbUtil.getMappedUserData(userFormData) 
         credDict = {} 
-        credDict[Constants.EMAIL_ID] = loginDict["emailid"]    
+        credDict[Constants.EMAIL_ID] = loginDict["txt_email_id"]    
         credDict[Constants.PASSWORD] = loginDict["pass"]
         data = searchData(Constants.TABLE_USER_DETAILS,[Constants.EMAIL_ID],credDict)
         try:
