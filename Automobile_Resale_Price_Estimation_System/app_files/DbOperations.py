@@ -5,6 +5,7 @@ Created on 19-Feb-2022
 '''
 
 from app_files.DbConUtil import connectDB
+import json
 
 def insertData(tableName,dataDict):
     con,cursor = connectDB()
@@ -28,7 +29,10 @@ def updateData(tableName,updateDict,idDict):
     
 def searchData(tableName,columnName,dictName):
     con,cursor = connectDB()
-    query = "select " + ",".join(columnName) +" from mca."+ tableName +" where " + " and ".join(name +" = " +"'"+dictName[name]+"'" for name in dictName)
+    if dictName=={}:
+        query = "select " + ",".join(columnName) +" from mca."+ tableName
+    else:
+        query = "select " + ",".join(columnName) +" from mca."+ tableName +" where " + " and ".join(name +" = " +"'"+dictName[name]+"'" for name in dictName)
     print('query>> ',query)
     cursor.execute(query)
     data = cursor.fetchall()
@@ -45,7 +49,18 @@ def deleteData(tableName,idDict):
     cursor.execute(query)
     con.commit()
     cursor.close()
-    con.close()    
+    con.close() 
+    
+def getCarDetailsWithImage():
+    con,cursor = connectDB()
+    query = "select distinct cd.carid,cd.manufacturer,cd.model,cd.price,ci.image_url from mca.cardetails cd,mca.carimage ci where cd.carid=ci.carid;" 
+    print(query)
+    cursor.execute(query)
+    data = cursor.fetchall()
+    return data
+    con.commit()
+    cursor.close()
+    con.close()  
     
 # for debug
 if __name__ == '__main__':

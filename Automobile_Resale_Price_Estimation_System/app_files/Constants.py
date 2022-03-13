@@ -49,3 +49,8 @@ class Constants:
     CAR_ID = 'carid'
     IMAGE_ID = 'imageid'
     
+    TABLE_CAR_MANUFACTURER = 'carmanufacturer'
+    TABLE_CAR_MODEL = 'carmodel'
+    MANUFACTURER_NAME = 'mname'
+    IS_ACTIVE = 'isactive'
+    MANUFACTURER_ID = 'manufacturerid'

@@ -5,7 +5,8 @@ Created on 19-Feb-2022
 '''
 from app_files.DbUtils import DbUtils
 from app_files.Constants import Constants
-from app_files.DbOperations import insertData, updateData, deleteData
+from app_files.DbOperations import insertData, updateData, deleteData, searchData, getCarDetailsWithImage
+
 
 class Cars:
     
@@ -31,3 +32,24 @@ class Cars:
         idDict = {}
         idDict[Constants.IMAGE_ID] = carFormData.get("imageid")
         deleteData(Constants.TABLE_CAR_IMAGE, idDict)
+        
+    def getCarManufacturer(self,isactive):
+        idDict = {}
+        if isactive=='true':
+            idDict[Constants.IS_ACTIVE] = 'true'
+        car_manufacturer_list = searchData(Constants.TABLE_CAR_MANUFACTURER,'*',idDict)
+        return car_manufacturer_list
+    
+    def getCarModels(self,mid):
+        idDict = {}
+        idDict[Constants.MANUFACTURER_ID] = mid
+        idDict[Constants.IS_ACTIVE] = 'true'
+        car_models_list = searchData(Constants.TABLE_CAR_MODEL,'*',idDict)
+        return car_models_list
+    
+    def getCars(self):
+        #car_list = searchData(Constants.TABLE_CAR_DETAILS,[Constants.MANUFACTURER,Constants.MODEL,Constants.PRICE],{})
+        car_list = getCarDetailsWithImage()
+        print(car_list)
+        return car_list
+            

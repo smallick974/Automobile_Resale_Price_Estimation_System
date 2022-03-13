@@ -9,6 +9,7 @@ from app_files.Constants import Constants
 class DbUtils:
     
     def getMappedUserData(self,userFormData):
+         
         userDataDict = {}
         if "txt_firstname" in userFormData:
             userDataDict[Constants.FIRSTNAME] = userFormData.get("txt_firstname")
@@ -39,7 +40,7 @@ class DbUtils:
             
         if "txt_zip" in userFormData:
             userDataDict[Constants.ZIP_CODE] = userFormData.get("txt_zip")
-            
+                    
         if "txt_country" in userFormData:
             userDataDict[Constants.COUNTRY] = userFormData.get("txt_country")
             

@@ -1,0 +1,34 @@
+<!DOCTYPE html>
+<html>
+<head>
+<title>Profile</title>
+	<meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge" />
+    <!-- Latest compiled and minified CSS -->
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/css/bootstrap.min.css">
+    <!-- jQuery library -->
+    <!-- Latest compiled JavaScript -->
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/js/bootstrap.min.js"></script>
+    <script src="{{ url_for('static',filename='script.js')}}"></script>
+    <link rel="stylesheet" href="{{ url_for('static',filename='style.css')}}">
+    <script src="../js/jquery.min.js"></script>
+    <script src="../js/bootstrap.min.js"></script>
+	<script src="{{ url_for('static',filename='jquery.min.js')}}"></script>
+	<script src="{{ url_for('static',filename='bootstrap.min.js')}}"></script>
+	
+    <script>
+        $(document).ready(function(){
+            $(function(){
+                $("#nav-placeholder").load("{{ url_for('nav')}}");
+            });
+        })
+    </script>
+</head>
+
+<body>
+<div id="nav-placeholder"></div>
+    <br/><br/><br/><br/><br/><br/>
+</body>
+
+</html>

@@ -1,0 +1,228 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+  	<title>Automobile Resale Portal</title>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge" />
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/css/bootstrap.min.css">
+	<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+	<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/js/bootstrap.min.js"></script>
+    <script src="{{ url_for('static',filename='script.js')}}"></script>
+    <link rel="stylesheet" href="{{ url_for('static',filename='style.css')}}">
+  </head>
+    <body>
+    	<!--------------------Navigation bar------------------------------->
+        <nav class="navbar navbar-inverse navbar-fixed-top">
+			<div class="container-fluid">
+    			<div class="navbar-header">
+        			<a class="navbar-brand" href="/">Automobile Resale Portal<sub><br/>Powered By AI</sub></a>
+        		</div>
+        	<div class="col-xs-6">
+        		<br/><input class="form-control" id="ex3" type="text" placeholder="Search Cars"><br/>
+        	</div>
+        	{% if session %}
+			<ul class="nav navbar-nav navbar-right">
+    		<li>
+        		<a href="#"><span class="glyphicon glyphicon-heart"></span>&nbsp;&nbsp;Wishlist</a><br/>
+    		</li> 
+    
+    		<li class="dropdown">
+    		<a class="dropdown-toggle" data-bs-toggle="dropdown" href="#"><span class="glyphicon glyphicon-user"></span>&nbsp;&nbsp;Hi {{ session["userData"][0][0] }}
+    		
+			<span class="caret"></span></a>
+        	<ul class="dropdown-menu">
+            	<li><a href="{{ url_for('displayprofile')}}"><span class="glyphicon glyphicon-user"></span> &nbsp;&nbsp;My Profile</a></li>
+            	<li class="divider"></li>
+            	<li><a href="#reset_password" data-bs-toggle="modal"><span class="glyphicon glyphicon glyphicon-lock"></span> &nbsp;&nbsp;Reset Password</a></li>
+            	<li class="divider"></li>
+            	<li><a href="{{ url_for('logout')}}" data-bs-toggle="modal"><span class="glyphicon glyphicon glyphicon-lock"></span> &nbsp;&nbsp;Sign Out</a></li>
+        	</ul>
+    		</li>
+			</ul>
+			<br/><br/><div class="divcolor">Last Login: {{ session["userData"][0][2] }} </div>
+			
+			{% else %}
+			<ul class="nav navbar-nav navbar-right">
+    		
+    		<li class="dropdown">
+    		<a class="dropdown-toggle" data-bs-toggle="dropdown" href="#"><span class="glyphicon glyphicon-log-in"></span>&nbsp;&nbsp;Login
+			<span class="caret"></span></a>
+        	<ul class="dropdown-menu">
+            	<li><a href="#login" data-bs-toggle="modal"><span class="glyphicon glyphicon glyphicon-log-in"></span> &nbsp;&nbsp;Login</a></li>
+            	<li class="divider"></li>
+            	<li><a href="#reset_password" data-bs-toggle="modal"><span class="glyphicon glyphicon glyphicon-lock"></span> &nbsp;&nbsp;Reset Password</a></li>
+            	<li class="divider"></li>
+        	</ul>
+    		</li>
+    		<li><a href="#signUp" data-bs-toggle="modal"><span class="glyphicon glyphicon-user"></span>&nbsp;&nbsp;Sign Up</a></li>
+			</ul>
+			{% endif %}
+    		</div>
+		</nav>
+        
+          <!--------------------Login Page------------------------------->
+          <!-- Login Modal -->
+        <form action="Welcome" method="post">
+        <div class="modal fade" id="login" role="dialog">
+        <div class="modal-dialog">
+        <!-- Modal content-->
+        <div class="modal-content">
+          <div class="modal-header">
+            <button type="button" class="close" data-bs-dimiss="modal">&times;</button>
+          </div>
+          <div class="modal-body">
+            <div class="div-spacing">
+              <input type="text" class="form-control input-lg" name="txt_email_id" placeholder="Email Id">
+            </div><br/><br/>
+            <div class="div-spacing">
+              <input type="password" class="form-control input-lg" name="txt_password" placeholder="Password">
+            </div><br/><br/>
+            <div class="div-spacing">
+              <button type="submit" class="btn btn-primary btn-block" >Login</button>
+            </div><br/><br/>
+            <div class="text-center div-spacing">
+              <a href="#reset_password" data-bs-toggle="modal" data-bs-dimiss="modal">Forgot Password?</a>
+            </div><br/><br/>
+            <div class="div-spacing">
+              <button type="button" class="btn btn-warning center-block button-style" data-bs-dimiss="modal" data-bs-target="#signUp" data-bs-toggle="modal" onclick="setDefaultVisibility()">Sign Up</button>
+            </div>
+            <br/>
+        </div>
+        </div>
+      </div>
+      </div>
+      </form>
+   	
+      <!-- Signup Modal -->
+      <form action="Home" method="post">
+    	<div class="modal fade" id="signUp" role="dialog">
+    
+        	<div class="modal-dialog">
+        	<!-- Modal content-->
+        	<div class="modal-content">
+          		<div class="modal-header">
+            		<button type="button" class="close" data-bs-dimiss="modal" onclick="setDefaultVisibility()">&times;</button>
+          		</div>
+          		<div class="modal-body">
+            		<div class="stepper-wrapper">
+              			<div class="stepper-item active completed" id="step1">
+                			<div class="step-counter">1</div>
+                				<div class="step-name">Personal Information</div>
+              				</div>
+              			<div class="stepper-item active" id="step2">
+                	<div class="step-counter">2</div>
+                <div class="step-name">Address</div>
+              </div>
+              <div class="stepper-item active" id="step3">
+                <div class="step-counter" id="step-completed">3</div>
+                <div class="step-name">Completed</div>
+              </div>
+            </div>
+            <div id="personal_info">
+              <div class="line-spacing">
+                <input type="text" class="form-control" name="txt_firstname" placeholder="Firstname" required>
+              </div>
+              <div class="line-spacing">
+                <input type="text" class="form-control" name="txt_lastname" placeholder="Lastname" required>
+              </div>
+              <div class="line-spacing">
+                <input type="text" class="form-control" name="txt_email_id" placeholder="Email Id" required>
+              </div>
+              <div class="line-spacing">
+                <input type="text" class="form-control" name="txt_phone_no" placeholder="Contact" required>
+              </div>
+              <div class="line-spacing">
+                <input type="date" class="form-control" name="txt_dob" placeholder="Date of Birth" required>
+              </div>
+              <div class="line-spacing">
+              <button type="button" id="btn_nextPage" class="btn btn-primary float-right button-style" onclick="navigateToAddress()">Next</button><br/>
+              </div><br/>
+            </div>
+            <div id = "address_info" class="hide-element">
+            <div class="line-spacing">
+              <input type="text" class="form-control" name="txt_address1" placeholder="Address Line 1" >
+            </div>
+            <div class="line-spacing">
+              <input type="text" class="form-control" name="txt_address2" placeholder="Address Line 2">
+            </div>
+            <div class="line-spacing">
+              <input type="text" class="form-control" name="txt_city" placeholder="City" >
+            </div>
+            <div class="line-spacing">
+              <input type="text" class="form-control" name="txt_state" placeholder="State" >
+            </div>
+            <div class="line-spacing">
+              <input type="text" class="form-control" name="txt_zip" placeholder="Zip" >
+            </div>
+            <div class="line-spacing">
+              <input type="text" class="form-control" name="txt_country" placeholder="Country" >
+            </div>
+              <div class="float-right">
+                <button type="button" class="btn btn-primary" onclick="navigatePersonalInfo()">Previous</button>&nbsp;&nbsp;&nbsp;
+                <button type="button" id="btn_nextPage" class="btn btn-primary float-right button-style" onclick="navigateToSignIn()">Next</button>
+            </div>
+            <br/><br/>
+          </div>
+          <div id="sign-in" class="hide-element">
+          	<div class="line-spacing input-group">
+              <input type="password" class="form-control" name="txt_password" id="txt_password" placeholder="Enter Password" pattern="(?=.*\d)(?=.*[!@#$&*])(?=.*[a-z])(?=.*[A-Z]).{8,}">
+              <div class="input-group-btn">
+                <button class="btn btn-default" id="btntogglepassword" type="button"><i id="btntogglepassword1" class="glyphicon glyphicon-eye-close"></i></button>
+              </div>
+            </div>
+            <div class="line-spacing input-group">
+              <input type="password" class="form-control" name="txt_renter_password" id="txt_renter_password" placeholder="Re-enter Password">
+              <div class="input-group-btn">
+                <button class="btn btn-default" id="btntogglepassword2" type="button"><i id="btntogglepassword3" class="glyphicon glyphicon-eye-close"></i></button>
+              </div>
+            </div>
+            <span class="text-color" id="password_not_match_span"></span>
+          <div class="text-center">
+          	
+          	<button type="button" class="btn btn-primary" onclick="navigateToAddress()">Previous</button>
+          	<button type="submit" class="btn btn-primary button-style">Submit</button>
+          </div>
+          <br/><br/>
+          <div id="strong_password" class="strong-password">
+            Your Password must satisfy the below minimum requirememt:<br/><br/>
+            <p id="lowercase" class="invalid">A Lowercase letter</p>
+            <p id="uppercase" class="invalid">An Uppercase letter</p>
+            <p id="number" class="invalid">A Number</p>
+            <p id="special_char" class="invalid">Special characters (!@#$&*)</p>
+            <p id="password_length" class="invalid">Minimum 8 characters</p>
+          </div>
+        </div>
+          <!--<div class="modal-footer">
+            <button type="button" class="btn btn-default" data-bs-dimiss="modal">Login</button>
+          </div>-->
+        </div>
+      </div> 
+    </div></div>
+    </form>
+    
+      <!-- Reset Password Modal -->
+      <div class="modal fade" id="reset_password" role="dialog">
+      <div class="modal-dialog">
+      <!-- Modal content-->
+      <div class="modal-content">
+        <div class="modal-header">
+          <button type="button" class="close" data-bs-dimiss="modal">&times;</button>
+        </div>
+        <div class="modal-body">
+          <div class="div-spacing">
+            <input type="text" class="form-control input-lg" id="txt_email_id" placeholder="Enter Registered Email Id">
+          </div><br/><br/>
+          <div class="div-spacing">
+            <input type="text" class="form-control input-lg" id="txt_email_id" placeholder="Enter OTP">
+          </div><br/><br/>
+          <div class="div-spacing">
+            <button type="button" class="btn btn-primary btn-block" onclick="submitResendOtp()" id="btn_sendotp">Send OTP</button>
+          </div><br/><br/>
+          <span class="text-primary hide-element" id="resend_otp">An OTP has been sent to your registered Email Id. Not received? <button type="button" class="btn btn-primary">Resend OTP</button></span>
+      </div>
+      </div>
+    </div>
+    </div>
+    </body>
+</html>

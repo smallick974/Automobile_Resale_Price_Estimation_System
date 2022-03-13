@@ -1,190 +1,199 @@
 <!DOCTYPE html>
-<html lang="en">
-  <head>
-    <meta charset="utf-8">
+<html>
+<head>
+<title>Automobile</title>
+	<meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <meta http-equiv="X-UA-Compatible" content="ie=edge" />
-    <!-- Latest compiled and minified CSS -->
-    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/css/bootstrap.min.css">
-    <!-- jQuery library -->
-    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
-    <!-- Latest compiled JavaScript -->
-    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/js/bootstrap.min.js"></script>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/css/bootstrap.min.css" rel="stylesheet">	
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/js/bootstrap.bundle.min.js"></script> 
+	<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/js/bootstrap.min.js"></script>
+	<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+	<script src="https://code.jquery.com/jquery-3.4.1.js"></script>
     <script src="{{ url_for('static',filename='script.js')}}"></script>
     <link rel="stylesheet" href="{{ url_for('static',filename='style.css')}}">
-  </head>
-    <body>
-        <nav class="navbar navbar-inverse navbar-fixed-top">
-            <div class="container-fluid">
-              <div class="navbar-header">
-                <a class="navbar-brand" href="#">Automobile Resale System</a>
-              </div>
-              <div class="col-xs-6">
-                <br/><input class="form-control" id="ex3" type="text" placeholder="Search Cars"><br/>
-              </div>
-              <ul class="nav navbar-nav navbar-right">
-                <li><a href="#"><span class="glyphicon glyphicon-heart"></span>&nbsp;&nbsp;Wishlist</a></li>
-                <li class="dropdown">
-                    <a class="dropdown-toggle" data-toggle="dropdown" href="#"><span class="glyphicon glyphicon-log-in"></span>&nbsp;&nbsp;Login
-                    <span class="caret"></span></a>
-                    <ul class="dropdown-menu">
-                        <li><a href="#login" data-toggle="modal"><span class="glyphicon glyphicon glyphicon-log-in"></span> &nbsp;&nbsp;Login</a></li>
-                        <li class="divider"></li>
-                        <li><a href="#reset_password" data-toggle="modal"><span class="glyphicon glyphicon glyphicon-lock"></span> &nbsp;&nbsp;Reset Password</a></li>
-                        <li class="divider"></li>
-                        <li><a href="#"><span class="glyphicon glyphicon-user"></span> &nbsp;&nbsp;My Profile</a></li>
-                        <li class="divider"></li>
-                        <li class="dropdown-header"><span>New User?&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<a href="#signUp" data-toggle="modal">Sign Up</a></span></li>
-                    </ul>
-                    <li><a href="#signUp" data-toggle="modal"><span class="glyphicon glyphicon-user"></span>&nbsp;&nbsp;Sign Up</a></li>
-              </ul>
-            </div>
-          </nav>
-          <!--------------------Login Page------------------------------->
-          <!-- Login Modal -->
-        <div class="modal fade" id="login" role="dialog">
-        <div class="modal-dialog">
-        <!-- Modal content-->
-        <div class="modal-content">
-          <div class="modal-header">
-            <button type="button" class="close" data-dismiss="modal">&times;</button>
-          </div>
-          <div class="modal-body">
-            <div class="div-spacing">
-              <input type="text" class="form-control input-lg" id="txt_email_id" placeholder="Email Id">
-            </div><br/><br/>
-            <div class="div-spacing">
-              <input type="password" class="form-control input-lg" id="txt_password" placeholder="Password">
-            </div><br/><br/>
-            <div class="div-spacing">
-              <button type="button" class="btn btn-primary btn-block" data-dismiss="modal">Login</button>
-            </div><br/><br/>
-            <div class="text-center div-spacing">
-              <a href="#">Forgot Password?</a>
-            </div><br/><br/>
-            <div class="div-spacing">
-              <button type="button" class="btn btn-warning center-block button-style" data-dismiss="modal" data-target="#signUp" data-toggle="modal" onclick="setDefaultVisibility()">Sign Up</button>
-            </div>
-            <br/>
-        </div>
-        </div>
-      </div>
-      </div>
+	
+    <script>
+        $(document).ready(function(){
+            $(function(){
+                $("#nav-bar").load("{{ url_for('nav')}}");
+            });
+            jQuery.ajax({type: "GET",
+    			url:'/CarDetails',
+    			dataType: 'json',
+    			success: function (response){
+    				var htmldata = '<div class="row">'
+    				for (index =0; index < response.car_list.length;){
+    					var car = response.car_list[index]
+    					if(index!=0 && index%3==0){
+    						htmldata = htmldata+'<div class="row">'
+    					}
+    					  for(i = 0;i<3;i++){
+    						  if(index<response.car_list.length){
+    						var car = response.car_list[index]
+    						  htmldata= htmldata+'<div class="col-4">'+
+	      						'<div class="card">'+
+	      						"<img style='height:300px' class='card-img-top' src='/static/CarImages/"+car[4]+"'>"+
+	    							'<div class="card-body">'+
+	      								'<h4 class="card-title">'+car[1]+'</h4>'+
+	      								'<p class="card-text">'+car[2]+'</p>'+
+	      								'<p class="card-text"><b>Price: Rs. '+car[3]+'</b></p>'+
+	      								'<a href="#" class="btn btn-primary">View Car</a>'+
+	      								'<a href="#" class="btn btn-primary">Wishlist</a>'+
+	    							'</div>'+
+	  							'</div>'+
+	  						'</div>'
+	  							index++
+	  						}
+    					  }
+	  	    			 htmldata = htmldata+'</div>'
+	  						
+    					}
+    				$('#carcard').append(htmldata)
+    			}
+    		});
+           
+            
+        })
+    </script>
+</head>
+<body class="backcolor">
+	<div id="nav-bar"></div>
+   	<br/><br/><br/><br/>
+   	<div style="margin:20px">
+    	<div class="row">
+    		<div class="col-9 div-style" id="carcard">
+		
+  			</div>
+    		<div class="col div-style">
+    			<label>Filter Your Search!</label>
+    			<div class="row"><button class="btn btn-primary">Clear All Filters</button></div>
+    			<div class="accordion accordion-flush" id="car_filters">
+  					<div class="accordion-item">
+    					<h2 class="accordion-header" id="filter_manufacturer">
+      						<button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#manufacturer_div" aria-expanded="false" aria-controls="manufacturer_div">
+        						Manufacturer
+      						</button>
+    					</h2>
+    					<div id="manufacturer_div" class="accordion-collapse collapse" aria-labelledby="filter_manufacturer" data-bs-parent="#car_filters">
+      						<div class="accordion-body">
+      							<div class=row>
+      								<div class="col-sm-8"></div>
+  									<div class="col-sm-4"><button class="btn btn-primary">Clear All</button></div>
+      							</div>
+      							{%
+									for manufacturer in car_manufacturers:
+								%}
+									<div class="form-check">
+  										<input class="form-check-input" type="checkbox" value="{{manufacturer[0]}}" id="{{manufacturer[0]}}">
+  										<label class="form-check-label" for="{{manufacturer[0]}}">
+    										{{manufacturer[1]}}
+  										</label>
+									</div>
+  								{%
+									endfor
+								%}
+      						</div>
+    					</div>
+  					</div>
+  					<div class="accordion-item">
+    					<h2 class="accordion-header" id="filter_price">
+      						<button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#price_div" aria-expanded="false" aria-controls="price_div">
+        						Price Range
+      						</button>
+    					</h2>
+    					<div id="price_div" class="accordion-collapse collapse" aria-labelledby="filter_price" data-bs-parent="#car_filters">
+      						<div class="accordion-body">Placeholder content for this accordion, which is intended to demonstrate the <code>.accordion-flush</code> class. This is the first item's accordion body.</div>
+    					</div>
+  					</div>
+  					<div class="accordion-item">
+    					<h2 class="accordion-header" id="filter_year">
+      						<button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#year_div" aria-expanded="false" aria-controls="year_div">
+        						Build Year
+      						</button>
+    					</h2>
+    					<div id="year_div" class="accordion-collapse collapse" aria-labelledby="filter_year" data-bs-parent="#car_filters">
+      						<div class="accordion-body">
 
-      <!-- Signup Modal -->
-      <form action="Home" method="post">
-    	<div class="modal fade" id="signUp" role="dialog">
-    
-        	<div class="modal-dialog">
-        	<!-- Modal content-->
-        	<div class="modal-content">
-          		<div class="modal-header">
-            		<button type="button" class="close" data-dismiss="modal" onclick="setDefaultVisibility()">&times;</button>
-          		</div>
-          		<div class="modal-body">
-            		<div class="stepper-wrapper">
-              			<div class="stepper-item active completed" id="step1">
-                			<div class="step-counter">1</div>
-                				<div class="step-name">Personal Information</div>
-              				</div>
-              			<div class="stepper-item active" id="step2">
-                	<div class="step-counter">2</div>
-                <div class="step-name">Address</div>
-              </div>
-              <div class="stepper-item active" id="step3">
-                <div class="step-counter" id="step-completed">3</div>
-                <div class="step-name">Completed</div>
-              </div>
-            </div>
-            <div id="personal_info">
-              <div class="line-spacing">
-                <input type="text" class="form-control" name="txt_firstname" placeholder="Firstname" required>
-              </div>
-              <div class="line-spacing">
-                <input type="text" class="form-control" name="txt_lastname" placeholder="Lastname" required>
-              </div>
-              <div class="line-spacing">
-                <input type="text" class="form-control" name="txt_email_id" placeholder="Email Id" required>
-              </div>
-              <div class="line-spacing">
-                <input type="text" class="form-control" name="txt_phone_no" placeholder="Contact" required>
-              </div>
-              <div class="line-spacing">
-                <input type="date" class="form-control" name="txt_dob" placeholder="Date of Birth" required>
-              </div>
-              <div class="line-spacing">
-              <button type="button" id="btn_nextPage" class="btn btn-primary float-right button-style" onclick="navigateToAddress()">Next</button><br/>
-              </div><br/>
-            </div>
-            <div id = "address_info" class="hide-element">
-            <div class="line-spacing">
-              <input type="text" class="form-control" name="txt_address1" placeholder="Address Line 1" required>
-            </div>
-            <div class="line-spacing">
-              <input type="text" class="form-control" name="txt_address2" placeholder="Address Line 2">
-            </div>
-            <div class="line-spacing">
-              <input type="text" class="form-control" name="txt_city" placeholder="City" required>
-            </div>
-            <div class="line-spacing">
-              <input type="text" class="form-control" name="txt_state" placeholder="State" required>
-            </div>
-            <div class="line-spacing">
-              <input type="text" class="form-control" name="txt_zip" placeholder="Zip" required>
-            </div>
-            <div class="line-spacing">
-              <input type="text" class="form-control" name="txt_country" placeholder="Country" required>
-            </div>
-              <div class="float-right">
-                <button type="button" class="btn btn-primary" onclick="navigatePersonalInfo()">Previous</button>&nbsp;&nbsp;&nbsp;
-                <button type="button" id="btn_nextPage" class="btn btn-primary float-right button-style" onclick="navigateToSignIn()">Next</button>
-            </div>
-            <br/><br/>
-          </div>
-          <div id="sign-in" class="hide-element">
-          	<div class="line-spacing">
-              <input type="password" class="form-control" name="txt_password" placeholder="Enter Password" required>
-            </div>
-            <div class="line-spacing">
-              <input type="password" class="form-control" name="txt_renter_password" placeholder="Re-enter Password" required>
-            </div>
-          <div class="text-center">
-          	
-          	<button type="button" class="btn btn-primary" onclick="navigateToAddress()">Previous</button>
-          	<button type="submit" class="btn btn-primary button-style">Submit</button>
-          </div>
-          <br/><br/>
-        </div>
-          <!--<div class="modal-footer">
-            <button type="button" class="btn btn-default" data-dismiss="modal">Login</button>
-          </div>-->
-        </div>
-      </div>
-     
-    </div></div>
-    </form>
-      <!-- Reset Password Modal -->
-      <div class="modal fade" id="reset_password" role="dialog">
-      <div class="modal-dialog">
-      <!-- Modal content-->
-      <div class="modal-content">
-        <div class="modal-header">
-          <button type="button" class="close" data-dismiss="modal">&times;</button>
-        </div>
-        <div class="modal-body">
-          <div class="div-spacing">
-            <input type="text" class="form-control input-lg" id="txt_email_id" placeholder="Enter Registered Email Id">
-          </div><br/><br/>
-          <div class="div-spacing">
-            <input type="text" class="form-control input-lg" id="txt_email_id" placeholder="Enter OTP">
-          </div><br/><br/>
-          <div class="div-spacing">
-            <button type="button" class="btn btn-primary btn-block" onclick="submitResendOtp()" id="btn_sendotp">Send OTP</button>
-          </div><br/><br/>
-          <span class="text-primary hide-element" id="resend_otp">An OTP has been sent to your registered Email Id. Not received? <button type="button" class="btn btn-primary">Resend OTP</button></span>
-      </div>
-      </div>
+							</div>
+    					</div>
+  					</div>
+  					<div class="accordion-item">
+    					<h2 class="accordion-header" id="filter_condition">
+      						<button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#condition_div" aria-expanded="false" aria-controls="condition_div">
+        						Car Condition
+      						</button>
+    					</h2>
+    					<div id="condition_div" class="accordion-collapse collapse" aria-labelledby="filter_condition" data-bs-parent="#car_filters">
+      						<div class="accordion-body">
+      						
+      						</div>
+    					</div>
+  					</div>
+  					<div class="accordion-item">
+    					<h2 class="accordion-header" id="filter_cylinders">
+      						<button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#cylinder_div" aria-expanded="false" aria-controls="cylinder_div">
+        						Cylinders
+      						</button>
+    					</h2>
+    					<div id="cylinder_div" class="accordion-collapse collapse" aria-labelledby="filter_cylinders" data-bs-parent="#car_filters">
+      						<div class="accordion-body">
+
+							</div>
+    					</div>
+  					</div>
+  					<div class="accordion-item">
+    					<h2 class="accordion-header" id="filter_fuel">
+      						<button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#fuel_div" aria-expanded="false" aria-controls="fuel_div">
+        						Fuel Type
+      						</button>
+    					</h2>
+    					<div id="fuel_div" class="accordion-collapse collapse" aria-labelledby="filter_fuel" data-bs-parent="#car_filters">
+      						<div class="accordion-body">
+      						
+      						</div>
+    					</div>
+  					</div>
+  					<div class="accordion-item">
+    					<h2 class="accordion-header" id="filter_drive">
+      						<button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#drive_div" aria-expanded="false" aria-controls="drive_div">
+        						Drive Type
+      						</button>
+    					</h2>
+    					<div id="drive_div" class="accordion-collapse collapse" aria-labelledby="filter_drive" data-bs-parent="#car_filters">
+      						<div class="accordion-body">
+      						
+      						</div>
+    					</div>
+  					</div>
+  					<div class="accordion-item">
+    					<h2 class="accordion-header" id="filter_state">
+      						<button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#state_div" aria-expanded="false" aria-controls="state_div">
+        						State
+      						</button>
+    					</h2>
+    					<div id="state_div" class="accordion-collapse collapse" aria-labelledby="filter_state" data-bs-parent="#car_filters">
+      						<div class="accordion-body">
+      						
+      						</div>
+    					</div>
+  					</div>
+  					<div class="accordion-item">
+    					<h2 class="accordion-header" id="filter_size">
+      						<button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#size_div" aria-expanded="false" aria-controls="size_div">
+        						Car Size
+      						</button>
+    					</h2>
+    					<div id="size_div" class="accordion-collapse collapse" aria-labelledby="filter_size" data-bs-parent="#car_filters">
+      						<div class="accordion-body">
+      						
+      						</div>
+    					</div>
+  					</div>
+				</div>
+    		</div>
+    	</div>
     </div>
-    </div>
-    </body>
+</body>
+
 </html>

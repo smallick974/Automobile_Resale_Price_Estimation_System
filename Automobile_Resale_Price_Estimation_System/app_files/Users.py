@@ -25,23 +25,26 @@ class Users:
                 print('inserted message>>')
         except ValueError:
             print("This Email ID already exists..")
+        except Exception as e:
+            print("Exception: ",e)    
     
     
     def userLogin(self,userFormData):
+        print("userFormData: ",userFormData)
         dbUtil = DbUtils()
         loginDict = dbUtil.getMappedUserData(userFormData) 
         credDict = {} 
-        credDict[Constants.EMAIL_ID] = loginDict["txt_email_id"]    
+        credDict[Constants.EMAIL_ID] = loginDict["emailid"]    
         credDict[Constants.PASSWORD] = loginDict["pass"]
-        data = searchData(Constants.TABLE_USER_DETAILS,[Constants.EMAIL_ID],credDict)
+        firstName = searchData(Constants.TABLE_USER_DETAILS,[Constants.FIRSTNAME,Constants.EMAIL_ID,Constants.USER_LAST_LOGIN],credDict)
         try:
-            if len(data) == 0:
+            if len(firstName) == 0:
                 raise ValueError
             else:
                 timestampDict = {}
                 timestampDict[Constants.USER_LAST_LOGIN] = loginDict[Constants.USER_LAST_LOGIN]
                 updateData(Constants.TABLE_USER_DETAILS,timestampDict,credDict)
-                print("LogIn Successful..")
+                return firstName
         except ValueError:
             print("Email ID or Password Incorrect..")
     
@@ -63,5 +66,18 @@ class Users:
             deleteData(Constants.TABLE_USER_DETAILS, idDict)
         except Exception as e:
             print(e)
+            
+    def displayProfile(self,emailid):
+        emailDict={}
+        emailDict[Constants.EMAIL_ID] = emailid    
+        profiledata = searchData(Constants.TABLE_USER_DETAILS,[Constants.FIRSTNAME,Constants.LASTNAME,Constants.EMAIL_ID,Constants.CONTACT,Constants.DATE_OF_BIRTH,Constants.ADDRESS_LINE_1,Constants.ADDRESS_LINE_2,Constants.CITY,Constants.STATE,Constants.ZIP_CODE,Constants.COUNTRY],emailDict)
+        try:
+            if len(profiledata) == 0:
+                raise ValueError
+            else:
+                return profiledata
+        except ValueError:
+            print("No Data Found..")
+        pass        
         
         
